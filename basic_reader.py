@@ -18,3 +18,5 @@ encoding_info = detect_encoding(file_path)
 
 f = open(file_path, encoding=encoding_info['encoding'], mode = 'rt')
 print(f.read())
+
+# Siema
