@@ -18,9 +18,6 @@ def detect_encoding(file_path):
 file_path = "brzydkie-kaczatko.txt"
 encoding_info = detect_encoding(file_path)
 
-f = open(file_path, encoding=encoding_info['encoding'], mode = 'rt')
-print(f.read())
-
 with open(file_path, encoding=encoding_info['encoding'], mode = 'rt') as f:
     sys.stdin = f
     q=deque()
