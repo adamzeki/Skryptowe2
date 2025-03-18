@@ -7,10 +7,19 @@ def count_sentences_with_proper_names(stream):
 
     for sentence in read_sentences(stream):
         total_sentences+=1
-        in_word = False
+        #in_word = False
         first_word = True
 
-        for char in sentence:
+        for word in sentence.split():
+            if word[0].isalpha():
+                if first_word:
+                    first_word=False
+                else:
+                    if word[0].isupper():
+                        sentences_with_proper_names+=1
+                        break
+
+        """for char in sentence: #rework with char[0]
             if char.isalpha():
                 if not in_word:
                     in_word = True
@@ -19,7 +28,7 @@ def count_sentences_with_proper_names(stream):
                         break
                     first_word = False
             else:
-                in_word = False
+                in_word = False"""
 
     if total_sentences == 0:
         return 0.0
