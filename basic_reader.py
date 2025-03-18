@@ -1,8 +1,4 @@
 import sys
-from collections import deque
-
-sys.stdout.reconfigure(encoding='utf-8')
-sys.stdin.reconfigure(encoding='utf-8')
 
 def print_cleaned_lines(cleaned_text):
     for line in cleaned_text.splitlines():
@@ -33,6 +29,8 @@ def text_cleaner(stream):
     return res_string
 
 def main():
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stdin.reconfigure(encoding='utf-8')
     print_cleaned_lines(text_cleaner(sys.stdin))
 
 if __name__ == "__main__":
