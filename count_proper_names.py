@@ -17,8 +17,7 @@ def count_sentences_with_proper_names(stream):
                     found_proper_name = True
                 first_word = False
         else:
-            if in_word:
-                in_word = False
+            in_word = False
 
         if char in ".!?":
             if in_sentence:

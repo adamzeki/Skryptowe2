@@ -1,46 +1,39 @@
-import chardet
 import sys
 from collections import deque
-from chardet import UniversalDetector
 
-def detect_encoding(file_path):
-    detector = UniversalDetector()
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stdin.reconfigure(encoding='utf-8')
 
-    with open(file_path, 'rb') as f:
-        for line in f:
-            detector.feed(line)
-            if detector.done:
-                break
+def print_cleaned_lines(cleaned_text):
+    for line in cleaned_text.splitlines():
+        print(line)
 
-    detector.close()
-    return detector.result
-
-file_path = "brzydkie-kaczatko.txt"
-encoding_info = detect_encoding(file_path)
-
-with open(file_path, encoding=encoding_info['encoding'], mode = 'rt') as f:
-    sys.stdin = f
-    q=deque()
-    empty_ctr = 0
-    pre_finished = False
-    for line in sys.stdin:
+def text_cleaner(stream):
+    res_string = ""
+    line_cntr = 0
+    prev_preamb = False
+    preamb_finished = False
+    for line in stream:
         clean_line = ' '.join(line.split())
-
-        if len(q) < 10 and not pre_finished:
-            if not clean_line:
-                empty_ctr+=1
-            else:
-                empty_ctr=0
-            if empty_ctr >= 2:
-                q.clear()
-                empty_ctr=0
-                pre_finished=True
-
         if "-----" in clean_line:
-            while len(q) > 0:
-                print(q.popleft())
             break
+        res_string += clean_line + '\n'
 
-        q.append(clean_line)
-        if len(q) >= 10:
-            print(q.popleft())
+        if line_cntr < 10 and not preamb_finished:
+            line_cntr+=1
+            if not clean_line:
+                if prev_preamb:
+                    res_string = ""
+                    preamb_finished = True
+                else:
+                    prev_preamb = True
+            else:
+                prev_preamb = False
+
+    return res_string
+
+def main():
+    print_cleaned_lines(text_cleaner(sys.stdin))
+
+if __name__ == "__main__":
+    main()
