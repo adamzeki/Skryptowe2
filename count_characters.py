@@ -10,6 +10,8 @@ def count_characters(stream):
     return characters_count
 
 def main():
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stdin.reconfigure(encoding='utf-8')
     result = count_characters(sys.stdin)
     print(result)
 

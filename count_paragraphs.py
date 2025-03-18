@@ -19,6 +19,8 @@ def count_paragraphs(stream):
 
 
 def main():
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stdin.reconfigure(encoding='utf-8')
     result = count_paragraphs(sys.stdin)
     print(result)
 
