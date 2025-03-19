@@ -3,6 +3,7 @@ from sentence_extractor import read_sentences
 
 def find_sentences_with_the_words(stream):
     word_count=0 #czy to oszczedzi tworzenia n razy zmiennej? czy jest sens tak robic w python
+    # Myślę, że to nie ma większego znaczenia
     for sentence in read_sentences(stream):
         has_i = False
         has_oraz = False
