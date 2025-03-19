@@ -1,20 +1,19 @@
 import sys
-
+import locale
 from sentence_extractor import read_sentences
 
+locale.setlocale(locale.LC_ALL, "pl_PL.UTF-8")
 
 def find_sentences_in_lexicographical_order(stream):
     for sentence in read_sentences(stream):
         is_ordered = True
-        prev_word = "@" #earlier than 'A' in ascii table
+        prev_word = "@"
         for word in sentence.split():
             if word[0].isalpha():
-                if prev_word > word.upper():
+                if locale.strcoll(prev_word, word) > 0:
                     is_ordered = False
                     break
-
-                prev_word = word.upper()
-
+                prev_word = word
 
         if is_ordered:
             yield sentence
